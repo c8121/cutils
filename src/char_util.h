@@ -48,7 +48,7 @@ int is_newline(int c) {
  * @return 1 if it is whitespace , 0 if not
  */
 int is_whitespace(int c) {
-    if (c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == '\v')
+    if (c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == '\v' || c == '\f')
         return 1;
     return 0;
 }
