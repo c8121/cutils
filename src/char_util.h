@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_CHAR_UTIL
-#define ASSETS_ARCHIVE_CHAR_UTIL
+#ifndef CUTILS_CHAR_UTIL
+#define CUTILS_CHAR_UTIL
 
 #include <string.h>
 
@@ -77,4 +77,4 @@ int is_equal(const char *s1, const char *s2) {
     return strncmp(s1, s2, l) == 0 ? 1 : 0;
 }
 
-#endif //ASSETS_ARCHIVE_CHAR_UTIL
+#endif //CUTILS_CHAR_UTIL

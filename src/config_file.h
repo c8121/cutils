@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_CONFIG_FILE
-#define ASSETS_ARCHIVE_CONFIG_FILE
+#ifndef CUTILS_CONFIG_FILE
+#define CUTILS_CONFIG_FILE
 
 #include <stdio.h>
 #include <string.h>
@@ -152,4 +152,4 @@ int read_config_file(char *file_name, void (*apply_config_function)(char *sectio
 }
 
 
-#endif //ASSETS_ARCHIVE_CONFIG_FILE
+#endif //CUTILS_CONFIG_FILE

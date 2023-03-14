@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_TIME_UTIL
-#define ASSETS_ARCHIVE_TIME_UTIL
+#ifndef CUTILS_TIME_UTIL
+#define CUTILS_TIME_UTIL
 
 #include <time.h>
 
@@ -82,4 +82,4 @@ char *get_valid_time_string(const char *time_string) {
 
 }
 
-#endif //ASSETS_ARCHIVE_TIME_UTIL
+#endif //CUTILS_TIME_UTIL

@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_FILE_UTIL
-#define ASSETS_ARCHIVE_FILE_UTIL
+#ifndef CUTILS_FILE_UTIL
+#define CUTILS_FILE_UTIL
 
 #include <sys/stat.h>
 
@@ -54,4 +54,4 @@ int dir_exists(const char *dir_name) {
     return 0;
 }
 
-#endif //ASSETS_ARCHIVE_FILE_UTIL
+#endif //CUTILS_FILE_UTIL

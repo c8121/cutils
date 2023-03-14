@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_CHAR_BUFFER_UTIL
-#define ASSETS_ARCHIVE_CHAR_BUFFER_UTIL
+#ifndef CUTILS_CHAR_BUFFER_UTIL
+#define CUTILS_CHAR_BUFFER_UTIL
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -142,4 +142,4 @@ void char_buffer_free(struct char_buffer *cb) {
 }
 
 
-#endif //ASSETS_ARCHIVE_CHAR_BUFFER_UTIL
+#endif //CUTILS_CHAR_BUFFER_UTIL

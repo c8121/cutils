@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_UTIL
-#define ASSETS_ARCHIVE_UTIL
+#ifndef CUTILS
+#define CUTILS
 
 /**
  * Print message to stderr and exit with fiven status
@@ -28,4 +28,4 @@ void fail(int status, const char *message) {
     exit(status);
 }
 
-#endif //ASSETS_ARCHIVE_UTIL
+#endif //CUTILS

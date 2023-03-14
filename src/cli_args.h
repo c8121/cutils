@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_CLI_ARGS
-#define ASSETS_ARCHIVE_CLI_ARGS
+#ifndef CUTILS_CLI_ARGS
+#define CUTILS_CLI_ARGS
 
 #include <string.h>
 

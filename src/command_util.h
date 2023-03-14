@@ -17,8 +17,8 @@
  * Author: christian c8121 de
  */
 
-#ifndef ASSETS_ARCHIVE_COMMAND_UTIL
-#define ASSETS_ARCHIVE_COMMAND_UTIL
+#ifndef CUTILS_COMMAND_UTIL
+#define CUTILS_COMMAND_UTIL
 
 #include "char_util.h"
 #include "char_buffer_util.h"
@@ -167,4 +167,4 @@ char *command_build(char *command, struct command_args *args) {
 }
 
 
-#endif //ASSETS_ARCHIVE_COMMAND_UTIL
+#endif //CUTILS_COMMAND_UTIL
