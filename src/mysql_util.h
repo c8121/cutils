@@ -74,31 +74,43 @@ MYSQL_BIND *mysql_util_create_binds(int count) {
     return bind;
 }
 
+/**
+ * @return 0 on fail, 1 on success
+ */
+int mysql_util_store_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYSQL_BIND *result) {
+
+    if (param != NULL) {
+        if (mysql_stmt_bind_param(stmt, param) != 0) {
+            fprintf(stderr, "%s\n", mysql_error(conn));
+            return 0;
+        }
+    }
+
+    if (mysql_stmt_execute(stmt) != 0) {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+        return 0;
+    }
+
+    if (mysql_stmt_bind_result(stmt, result) != 0) {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+        return 0;
+    }
+
+    if (mysql_stmt_store_result(stmt) != 0) {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+        return 0;
+    }
+
+    return 1;
+}
 
 /**
  * @return -1 on fail, 0 on no data found, 1 on success
  */
 int mysql_util_fetch_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYSQL_BIND *result) {
 
-    if (mysql_stmt_bind_param(stmt, param) != 0) {
-        fprintf(stderr, "%s\n", mysql_error(conn));
+    if (!mysql_util_store_result(conn, stmt, param, result))
         return -1;
-    }
-
-    if (mysql_stmt_execute(stmt) != 0) {
-        fprintf(stderr, "%s\n", mysql_error(conn));
-        return -1;
-    }
-
-    if (mysql_stmt_bind_result(stmt, result) != 0) {
-        fprintf(stderr, "%s\n", mysql_error(conn));
-        return -1;
-    }
-
-    if (mysql_stmt_store_result(stmt) != 0) {
-        fprintf(stderr, "%s\n", mysql_error(conn));
-        return -1;
-    }
 
     int ret = 1;
     int s = mysql_stmt_fetch(stmt);
@@ -116,9 +128,11 @@ int mysql_util_fetch_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYS
  */
 unsigned long mysql_util_execute_insert(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param) {
 
-    if (mysql_stmt_bind_param(stmt, param) != 0) {
-        fprintf(stderr, "%s\n", mysql_error(conn));
-        return -1;
+    if (param != NULL) {
+        if (mysql_stmt_bind_param(stmt, param) != 0) {
+            fprintf(stderr, "%s\n", mysql_error(conn));
+            return -1;
+        }
     }
 
     if (mysql_stmt_execute(stmt) != 0) {
