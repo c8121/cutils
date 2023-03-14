@@ -20,6 +20,8 @@
 #ifndef ASSETS_ARCHIVE_TIME_UTIL
 #define ASSETS_ARCHIVE_TIME_UTIL
 
+#include <time.h>
+
 #include "char_util.h"
 
 /**
