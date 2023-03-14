@@ -20,6 +20,8 @@
 #ifndef CUTILS_MYSQL_UTIL
 #define CUTILS_MYSQL_UTIL
 
+#include <string.h>
+
 #include <mysql/mysql.h>
 
 /**
