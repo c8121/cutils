@@ -27,7 +27,7 @@
 /**
  * @return 1 on success, 0 otherwise
  */
-int __mysql_prepare_stmt(void *conn, MYSQL_STMT **stmt, const char *sql) {
+int mysql_util_prepare_stmt(void *conn, MYSQL_STMT **stmt, const char *sql) {
 
     if (conn == NULL) {
         fprintf(stderr, "%s", "Not connected\n");
@@ -48,7 +48,7 @@ int __mysql_prepare_stmt(void *conn, MYSQL_STMT **stmt, const char *sql) {
 /**
  *
  */
-MYSQL_BIND *__mysql_create_bind(enum enum_field_types type, void *value) {
+MYSQL_BIND *mysql_util_create_bind(enum enum_field_types type, void *value) {
 
     MYSQL_BIND *bind = malloc(sizeof(MYSQL_BIND));
     memset(bind, 0, sizeof(MYSQL_BIND));
@@ -62,7 +62,7 @@ MYSQL_BIND *__mysql_create_bind(enum enum_field_types type, void *value) {
 /**
  *
  */
-MYSQL_BIND *__mysql_create_binds(int count) {
+MYSQL_BIND *mysql_util_create_binds(int count) {
 
     MYSQL_BIND *bind = malloc(sizeof(MYSQL_BIND) * count);
     memset(bind, 0, sizeof(MYSQL_BIND) * count);
@@ -78,7 +78,7 @@ MYSQL_BIND *__mysql_create_binds(int count) {
 /**
  * @return -1 on fail, 0 on no data found, 1 on success
  */
-int __mysql_fetch_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYSQL_BIND *result) {
+int mysql_util_fetch_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYSQL_BIND *result) {
 
     if (mysql_stmt_bind_param(stmt, param) != 0) {
         fprintf(stderr, "%s\n", mysql_error(conn));
@@ -114,7 +114,7 @@ int __mysql_fetch_result(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param, MYSQL_
 /**
  * @return -1 on fail, insert id otherwise
  */
-unsigned long __mysql_execute(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param) {
+unsigned long mysql_util_execute_insert(void *conn, MYSQL_STMT *stmt, MYSQL_BIND *param) {
 
     if (mysql_stmt_bind_param(stmt, param) != 0) {
         fprintf(stderr, "%s\n", mysql_error(conn));
