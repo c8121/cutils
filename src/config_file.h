@@ -25,6 +25,8 @@
 
 #include "file_util.h"
 #include "char_util.h"
+#include "util.h"
+#include "cli_args.h"
 
 
 #define MAX_LEN_SECTION_NAME 512
@@ -46,7 +48,7 @@
  *
  * @return 1 on success, 0 on failure
  */
-int read_config_file(char *file_name, void (*apply_config_function)(char *section_name, char *name, char *value)) {
+int read_config_file(const char *file_name, void (*apply_config_function)(char *section_name, char *name, char *value)) {
 
     if (file_exists(file_name) == 0)
         return 0;
@@ -147,6 +149,39 @@ int read_config_file(char *file_name, void (*apply_config_function)(char *sectio
         apply_config_function(section_name, name, value);
 
     fclose(fp);
+
+    return 1;
+}
+
+/**
+ * Load and apply config, if given cli argument exists.
+ * Do nothing if cli argument does not exist.
+ * Fail with EX_IOERR if file does nox exist and parameter 'call_fail' is true (not 0)
+ * Load from default config file if no config argument given.
+ *
+ * @return 1 on success or if no config file given, 0 on failure
+ */
+int read_config_file_from_cli_arg(const char *cli_arg,
+                                  int argc, char *argv[], int call_fail,
+                                  const char *default_config_file,
+                                  void (*apply_config_function)(char *section_name, char *name, char *value)) {
+
+    int i = cli_get_opt_idx(cli_arg, argc, argv);
+    if (i > 0) {
+        if (read_config_file(argv[i], apply_config_function) == 0) {
+            if (call_fail)
+                fail(EX_IOERR, "Failed to read from config file");
+            else
+                return 0;
+        }
+    } else if (!is_null_or_empty(default_config_file)) {
+        if (read_config_file(default_config_file, apply_config_function) == 0) {
+            if (call_fail)
+                fail(EX_IOERR, "Failed to read from default config file");
+            else
+                return 0;
+        }
+    }
 
     return 1;
 }

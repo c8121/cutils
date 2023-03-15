@@ -46,7 +46,7 @@ int cli_has_opt(char *name, int argc, char *argv[]) {
  *
  * @return index of value, 0 if name was not found
  */
-int cli_get_opt_idx(char *name, int argc, char *argv[]) {
+int cli_get_opt_idx(const char *name, int argc, char *argv[]) {
 
     size_t l = strnlen(name, CLI_ARGS_MAX_NAME_LENGTH);
     for (int i = 0; i < argc - 1; i++) {
