@@ -20,6 +20,8 @@
 #ifndef CUTILS_DB_UTIL
 #define CUTILS_DB_UTIL
 
+#include "char_util.h"
+
 struct db_config {
     const char *host;
     const char *db;
