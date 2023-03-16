@@ -22,6 +22,8 @@
 
 #include <string.h>
 
+#include "char_util.h"
+
 #define CLI_ARGS_MAX_NAME_LENGTH 128
 
 /**
@@ -48,9 +50,8 @@ int cli_has_opt(char *name, int argc, char *argv[]) {
  */
 int cli_get_opt_idx(const char *name, int argc, char *argv[]) {
 
-    size_t l = strnlen(name, CLI_ARGS_MAX_NAME_LENGTH);
     for (int i = 0; i < argc - 1; i++) {
-        if (strncmp(name, argv[i], l) == 0) {
+        if (is_equal(name, argv[i])) {
             return i + 1;
         }
     }
