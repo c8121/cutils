@@ -21,6 +21,14 @@
 #define CUTILS
 
 /**
+ * Free pointer if not null
+ */
+void freenn(void *p) {
+    if (p != NULL)
+        free(p);
+}
+
+/**
  * Print message to stderr and exit with fiven status
  */
 void fail(int status, const char *message) {

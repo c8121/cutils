@@ -20,9 +20,13 @@
 #ifndef CUTILS_FILE_UTIL
 #define CUTILS_FILE_UTIL
 
+#define READLINE_BUF_SIZE 1024
+
 #include <sys/stat.h>
+#include <stdio.h>
 
 #include "char_util.h"
+#include "char_buffer_util.h"
 
 /**
  * @return 1 if it does exist and is a regular file, 0 if not
@@ -52,6 +56,35 @@ int dir_exists(const char *dir_name) {
             return 1;
     }
     return 0;
+}
+
+/**
+ * Safely read a line, no matter how long it might be (so you don't have to care about buffer sizes)
+ *
+ * @return line including newline or NULL
+ * Caller must free result
+ */
+char *freadline(FILE *in) {
+
+    char buf[READLINE_BUF_SIZE];
+    struct char_buffer *cb = NULL;
+    size_t len;
+    while (fgets(buf, READLINE_BUF_SIZE, in) != NULL) {
+        len = strnlen(buf, READLINE_BUF_SIZE);
+        cb = char_buffer_append(cb, buf, len);
+
+        //Read one line only
+        if (buf[len - 1] == '\n')
+            break;
+    }
+
+    if (cb == NULL)
+        return NULL;
+
+    char *ret = char_buffer_copy(cb);
+    char_buffer_free(cb);
+
+    return ret;
 }
 
 #endif //CUTILS_FILE_UTIL
