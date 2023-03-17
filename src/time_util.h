@@ -20,9 +20,40 @@
 #ifndef CUTILS_TIME_UTIL
 #define CUTILS_TIME_UTIL
 
+//strptime
+#define __USE_XOPEN
+
+#include <stdio.h>
 #include <time.h>
+#include <regex.h>
 
 #include "char_util.h"
+
+struct time_convert {
+    regex_t *regex;
+    char *format;
+    struct time_convert *next;
+};
+
+struct time_convert *time_convert_create(const char *regex, const char *format, struct time_convert *append_to) {
+
+    struct time_convert *result = malloc(sizeof(struct time_convert));
+
+    result->regex = malloc(sizeof(regex_t));
+    int ret = regcomp(result->regex, regex, REG_EXTENDED);
+    if (ret != 0)
+        fail(EX_USAGE, "time_util.h, time_convert_create: Invalid regex");
+
+    result->format = str_copy(format, strlen(format));
+    result->next = NULL;
+
+    if (append_to != NULL)
+        append_to->next = result;
+
+    return result;
+}
+
+struct time_convert *__time_converters = NULL;
 
 /**
  * Check if given string is a valid time format.
@@ -49,7 +80,7 @@ int is_valid_time_string(const char *time_string) {
 }
 
 /**
- * Take time string or shortcuts and convert them to "yyyy-mm-ss hh:mm:ss"
+ * Take time string or shortcut and convert to "yyyy-mm-ss hh:mm:ss"
  *
  * Available shortcuts:
  *    now
@@ -81,5 +112,52 @@ char *get_valid_time_string(const char *time_string) {
     return s;
 
 }
+
+/**
+ *
+ */
+void __init_time_converters() {
+    if (__time_converters != NULL)
+        return;
+
+    struct time_convert *curr = time_convert_create("^[0-9]{6}$", "%y%m%d", NULL);
+    __time_converters = curr;
+
+    curr = time_convert_create("^.+,\\s*[0-9]{1,2}\\s+[A-Za-z]+\\s[0-9]{2}", "%a, %d %b %Y %H:%M:%S", curr);
+    curr = time_convert_create(".*", "...", curr);
+}
+
+/**
+ * Try to convert given time string to "yyyy-mm-ss hh:mm:ss"
+ * Caller must free result
+ */
+char *convert_valid_time_string(const char *time_string) {
+
+    if (time_string == NULL)
+        return NULL;
+
+    __init_time_converters();
+
+    struct time_convert *curr = __time_converters;
+    while (curr != NULL) {
+
+        int ret = regexec(curr->regex, time_string, 0, NULL, 0);
+        if (!ret) {
+            struct tm t;
+            memset(&t, 0, sizeof(struct tm));
+            strptime(time_string, curr->format, &t);
+
+            char *s = malloc(20);
+            snprintf(s, 20, "%04i-%02i-%02i %02i:%02i:%02i", (t.tm_year + 1900), (t.tm_mon + 1), t.tm_mday,
+                     t.tm_hour, t.tm_min, t.tm_sec);
+            return s;
+        }
+        curr = curr->next;
+    }
+
+    return NULL;
+
+}
+
 
 #endif //CUTILS_TIME_UTIL
