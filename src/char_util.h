@@ -77,4 +77,27 @@ int is_equal(const char *s1, const char *s2) {
     return strncmp(s1, s2, l) == 0 ? 1 : 0;
 }
 
+/**
+ *
+ */
+void ltrim(char *s, const char *trim_chars) {
+
+    char *dst = s;
+    for (; strchr(trim_chars, *s) != NULL; ++s);
+
+    if (dst == s)
+        return;
+
+    while ((*dst++ = *s++));
+}
+
+void rtrim(char *s, const char *trim_chars) {
+
+    char *p = s + strlen(s);
+    while (p > s && (*p == '\0' || strchr(trim_chars, *p) != NULL)) {
+        *p = '\0';
+        p--;
+    }
+}
+
 #endif //CUTILS_CHAR_UTIL
