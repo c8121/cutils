@@ -20,6 +20,8 @@
 #ifndef CUTILS
 #define CUTILS
 
+#include <stdlib.h>
+
 /**
  * Free pointer if not null
  */
