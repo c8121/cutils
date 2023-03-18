@@ -20,9 +20,6 @@
 #ifndef CUTILS_TIME_UTIL
 #define CUTILS_TIME_UTIL
 
-//strptime
-#define __USE_XOPEN
-
 #include <stdio.h>
 #include <time.h>
 #include <regex.h>
