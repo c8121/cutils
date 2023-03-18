@@ -142,7 +142,7 @@ char *convert_valid_time_string(const char *time_string) {
     while (curr != NULL) {
 
         int ret = regexec(curr->regex, time_string, 0, NULL, 0);
-        if (!ret) {
+        if (ret == 0) {
             struct tm t;
             memset(&t, 0, sizeof(struct tm));
             strptime(time_string, curr->format, &t);
