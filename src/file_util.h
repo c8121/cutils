@@ -87,4 +87,16 @@ char *freadline(FILE *in) {
     return ret;
 }
 
+/**
+ * Caller must free result
+ */
+char *file_ext(const char *file_name, int max_len, const char *default_ext) {
+
+    char *p = file_name != NULL ? strrchr(file_name, '.') : NULL;
+    if (p == NULL)
+        return str_copy(default_ext, strnlen(default_ext, max_len));
+
+    return str_copy(p + 1, max_len);
+}
+
 #endif //CUTILS_FILE_UTIL
