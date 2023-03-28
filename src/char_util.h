@@ -20,6 +20,7 @@
 #ifndef CUTILS_CHAR_UTIL
 #define CUTILS_CHAR_UTIL
 
+#include <stdlib.h>
 #include <string.h>
 
 /**
