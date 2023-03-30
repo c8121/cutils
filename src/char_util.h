@@ -37,6 +37,26 @@ char *str_copy(const char *s, size_t len) {
 }
 
 /**
+ * Concatenate two string into new string
+ * Caller must free result.
+ */
+char *str_cat(const char *s1, const char *s2) {
+    size_t l1 = strlen(s1);
+    char *ret = malloc(l1 + strlen(s2) + 1);
+
+    char *r = ret;
+    char *p;
+    for (p = (char *) s1; r < (ret + l1); r++)
+        *r = *(p++);
+
+    for (p = (char *) s2; *p != '\0'; r++)
+        *r = *(p++);
+    *r = '\0';
+
+    return ret;
+}
+
+/**
  * @return 1 if it is newline , 0 if not
  */
 int is_newline(int c) {
