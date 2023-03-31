@@ -48,7 +48,8 @@
  *
  * @return 1 on success, 0 on failure
  */
-int read_config_file(const char *file_name, void (*apply_config_function)(char *section_name, char *name, char *value)) {
+int
+read_config_file(const char *file_name, void (*apply_config_function)(char *section_name, char *name, char *value)) {
 
     if (file_exists(file_name) == 0)
         return 0;
@@ -186,5 +187,38 @@ int read_config_file_from_cli_arg(const char *cli_arg,
     return 1;
 }
 
+/**
+ * Get file relative to argv[0], uses realpath(...).
+ * @return realpath from $0/file_name, or NULL if file does not exist
+ * Caller must free result
+ */
+char *get_config_file_path(int argc, char *argv[], const char *file_name) {
+
+    char dir[FILENAME_MAX];
+    memset(&dir, 0, FILENAME_MAX);
+
+    realpath(argv[0], dir);
+    char *p = strrchr(dir, '/');
+    if (p != NULL)
+        *p = '\0';
+    else
+        dir[0] = '\0';
+
+    char path[FILENAME_MAX];
+    memset(&path, 0, FILENAME_MAX);
+    snprintf(path, FILENAME_MAX - strlen(file_name) - 2, "%s/%s", dir, file_name);
+
+    char *ret = malloc(FILENAME_MAX);
+    memset(ret, 0, FILENAME_MAX);
+    realpath(path, ret);
+
+    if(!file_exists(ret)) {
+        fprintf(stderr, "File not found: %s\n", ret);
+        free(ret);
+        return NULL;
+    }
+
+    return ret;
+}
 
 #endif //CUTILS_CONFIG_FILE
