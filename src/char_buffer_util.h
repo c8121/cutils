@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "char_util.h"
+
 #define CHAR_BUFFER_INITIAL_FACTOR 4
 
 struct char_buffer {
