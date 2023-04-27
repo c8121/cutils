@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <sysexits.h>
 
 #include "file_util.h"
 #include "char_util.h"
@@ -189,7 +190,7 @@ int read_config_file_from_cli_arg(const char *cli_arg,
 
 /**
  * Get file relative to argv[0], uses realpath(...).
- * @return realpath from $0/file_name, or NULL if file does not exist
+ * @return realpath from $0/file_name, or NULL if file does not exist.
  * Caller must free result
  */
 char *get_config_file_path(int argc, char *argv[], const char *file_name) {

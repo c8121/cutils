@@ -99,7 +99,7 @@ int is_equal(const char *s1, const char *s2) {
 }
 
 /**
- *
+ * Modify given string: Remove any of <code>trim_chars</code> at beginning of <code>s</code>
  */
 void ltrim(char *s, const char *trim_chars) {
 
@@ -112,6 +112,9 @@ void ltrim(char *s, const char *trim_chars) {
     while ((*dst++ = *s++));
 }
 
+/**
+ * Modify given string: Remove any of <code>trim_chars</code> at end of <code>s</code> (set chars to \0)
+ */
 void rtrim(char *s, const char *trim_chars) {
 
     char *p = s + strlen(s);

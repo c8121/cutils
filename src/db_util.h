@@ -31,7 +31,17 @@ struct db_config {
 };
 
 /**
+ * Read configuration and apply to <code>struct db_config</code>:
  *
+ * <pre><code>
+ * struct db_config db;
+ *
+ * void apply_config(char *section_name, char *name, char *value) {
+ *   apply_db_config(&db, "mysql", section_name, name, value);
+ * }
+ *
+ * read_config_file(default_config_file, &apply_config)
+ * </code></pre>
  */
 void
 apply_db_config(struct db_config *db_config, const char *config_file_section, char *section_name, char *name, char *value) {

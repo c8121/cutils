@@ -18,8 +18,6 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <sysexits.h>
 
 
 #include "../../src/config_file.h"
@@ -30,8 +28,7 @@
 int main(int argc, char *argv[]) {
 
     printf("CONFIG FILE: '%s'\n", get_config_file_path(argc, argv, "../../config/default-config"));
-    printf("CONFIG FILE: '%s'\n", get_config_file_path(argc, argv, "../config/default-config"));
-    printf("CONFIG FILE: '%s'\n", get_config_file_path(argc, argv, "../../config/not-exists"));
-
+    //printf("CONFIG FILE: '%s'\n", get_config_file_path(argc, argv, "../config/default-config"));
+    //printf("CONFIG FILE: '%s'\n", get_config_file_path(argc, argv, "../../config/not-exists"));
 
 }

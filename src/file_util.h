@@ -88,6 +88,7 @@ char *freadline(FILE *in) {
 }
 
 /**
+ * Find filename extension (.txt for example).
  * Caller must free result
  */
 char *file_ext(const char *file_name, int max_len, const char *default_ext) {

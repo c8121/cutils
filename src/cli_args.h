@@ -88,4 +88,4 @@ char *cli_get_arg(int num, int argc, char *argv[]) {
 }
 
 
-#endif //ASSETS_ARCHIVE_CLI_ARGS
+#endif //CUTILS_CLI_ARGS

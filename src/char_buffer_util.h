@@ -78,7 +78,7 @@ struct char_buffer *char_buffer_append(struct char_buffer *cb, const char *s, si
 
         b = cb->curr;
 
-        if (b->avail >= len + 1) { ;
+        if (b->avail >= len + 1) {
             strncpy(b->s + b->len, s, len);
             b->avail -= len;
             b->len += len;

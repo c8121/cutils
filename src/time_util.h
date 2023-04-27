@@ -32,6 +32,9 @@ struct time_convert {
     struct time_convert *next;
 };
 
+/**
+ *
+ */
 struct time_convert *time_convert_create(const char *regex, const char *format, struct time_convert *append_to) {
 
     struct time_convert *result = malloc(sizeof(struct time_convert));

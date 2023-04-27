@@ -31,7 +31,7 @@ void freenn(void *p) {
 }
 
 /**
- * Print message to stderr and exit with fiven status
+ * Print message to stderr and exit with given status
  */
 void fail(int status, const char *message) {
     fprintf(stderr, "%s\n", message);

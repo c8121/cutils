@@ -65,6 +65,9 @@ char *command_args_get(char *name, struct command_args *args) {
 
 }
 
+/**
+ *
+ */
 void command_args_free(struct command_args *args) {
 
     struct command_args *a = args;
@@ -83,7 +86,7 @@ void command_args_free(struct command_args *args) {
  * Execute command and return output
  *
  * @return Output of command.
- * Note: Caller must free result;
+ * Caller must free result;
  */
 char *command_read(char *command) {
 
@@ -121,7 +124,7 @@ char *command_read(char *command) {
  * command = "cat {{file_name}}"
  *
  * @return Parsed command
- * Note: Caller must free result
+ * Caller must free result
  */
 char *command_build(char *command, struct command_args *args) {
 
